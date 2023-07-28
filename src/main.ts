@@ -39,7 +39,7 @@ async function validate(args: string[] = []): Promise<void> {
 
   const result = await exec(
     'flipt',
-    ['validate', '/workspace/**/*/features.yaml', '--issue-exit-code=0'],
+    ['validate', `${workspace}/**/*/features.yaml`, '--issue-exit-code=0'],
     false
   )
 
