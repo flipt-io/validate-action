@@ -21,10 +21,8 @@ async function run(): Promise<void> {
 }
 
 async function validate(args: string[] = []): Promise<void> {
-  const version = core.getInput('flipt-version')
-
-  core.startGroup(`Installing flipt: ${version}`)
-  await downloadFlipt(version)
+  core.startGroup(`Installing flipt:latest`)
+  await downloadFlipt()
   core.endGroup()
 
   let workspace = core.getInput('working-directory')
@@ -40,16 +38,8 @@ async function validate(args: string[] = []): Promise<void> {
   core.startGroup('Running flipt validate')
 
   const result = await exec(
-    'docker',
-    [
-      'run',
-      '-v',
-      `${workspace}:/workspace`,
-      `ghcr.io/flipt-io/flipt:${version}`,
-      '/bin/sh',
-      '-c',
-      '/bin/flipt validate /workspace/**/*/features.yaml --issue-exit-code=0'
-    ],
+    'flipt',
+    ['validate', '/workspace/**/*/features.yaml', '--issue-exit-code=0'],
     false
   )
 

@@ -2,10 +2,6 @@ name: 'Flipt Validate Action'
 description: 'Run Flipt Validate for features.yaml files'
 author: 'Flipt Devs <dev@flipt.io>'
 inputs:
-  flipt-version:
-    required: false
-    description: 'Version of Flipt to run'
-    default: 'latest'
   args:
     description: 'additional arguments to pass to the command'
     default: ''
@@ -14,7 +10,7 @@ inputs:
     description: 'working directory, default is project root'
     required: false
   github-token:
-    required: false
+    required: true
     description: 'GitHub Token for downloading artifacts'
 runs:
   using: 'node16'
