@@ -2,6 +2,10 @@ name: 'Flipt Validate Action'
 description: 'Run Flipt Validate for features.yaml files'
 author: 'Flipt Devs <dev@flipt.io>'
 inputs:
+  flipt-version:
+    required: false
+    description: 'Version of Flipt to run'
+    default: 'flipt-io/flipt:latest'
   args:
     description: 'additional arguments to pass to the command'
     default: ''
