@@ -1,11 +1,17 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'Flipt Validate Action'
+description: 'Run Flipt Validate for features.yaml files'
+author: 'Flipt Devs <dev@flipt.io>'
 inputs:
-  milliseconds: # change this
-    required: true
-    description: 'input description here'
-    default: 'default value if applicable'
+  args:
+    description: 'additional arguments to pass to the command'
+    default: ''
+    required: false
+  working-directory:
+    description: 'working directory, default is project root'
+    required: false
+  github-token:
+    required: false
+    description: 'GitHub Token for downloading artifacts'
 runs:
   using: 'node16'
   main: 'dist/index.js'

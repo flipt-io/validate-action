@@ -1,8 +1,8 @@
 {
-  "name": "typescript-action",
+  "name": "Flipt validate action",
   "version": "0.0.0",
   "private": true,
-  "description": "TypeScript template action",
+  "description": "Run Flipt Validate for features.yaml files",
   "main": "lib/main.js",
   "scripts": {
     "build": "tsc",
@@ -25,7 +25,12 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.10.0"
+    "@actions/core": "^1.10.0",
+    "@actions/exec": "^1.1.1",
+    "@actions/github": "^5.1.1",
+    "@actions/io": "^1.1.3",
+    "@actions/tool-cache": "^2.0.1",
+    "envalid": "^7.3.1"
   },
   "devDependencies": {
     "@types/node": "^18.16.3",
