@@ -5,7 +5,7 @@ inputs:
   flipt-version:
     required: false
     description: 'Version of Flipt to run'
-    default: 'flipt-io/flipt:latest'
+    default: 'latest'
   args:
     description: 'additional arguments to pass to the command'
     default: ''
