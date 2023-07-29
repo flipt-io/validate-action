@@ -1,4 +1,5 @@
 import * as core from '@actions/core'
+import * as glob from '@actions/glob'
 import {downloadFlipt} from './lib/cli'
 import {environmentVariables} from './lib/environment'
 import {exec} from './lib/exec'
@@ -37,9 +38,12 @@ async function validate(args: string[] = []): Promise<void> {
 
   core.startGroup('Running flipt validate')
 
+  const globber = await glob.create(`${workspace}/**/*/features.yaml`)
+  const files = await globber.glob()
+
   const result = await exec(
     'flipt',
-    ['validate', `${workspace}/**/*/features.yaml`, '--issue-exit-code=0'],
+    ['validate', files.join(' '), '--issue-exit-code=0'],
     false
   )
 
