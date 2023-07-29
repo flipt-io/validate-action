@@ -43,13 +43,7 @@ async function validate(args: string[] = []): Promise<void> {
 
   const result = await exec(
     'flipt',
-    [
-      'validate',
-      files.join(' '),
-      '--issue-exit-code=0',
-      '--format=json',
-      ...args
-    ],
+    ['validate', files.join(' '), '--issue-exit-code=0', '--format=json'],
     false
   )
 
