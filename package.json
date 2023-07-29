@@ -1,6 +1,6 @@
 {
-  "name": "Flipt validate action",
-  "version": "0.0.0",
+  "name": "flipt-validate-action",
+  "version": "0.1.0",
   "private": true,
   "description": "Run Flipt Validate for features.yaml files",
   "main": "lib/main.js",
@@ -15,15 +15,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/actions/typescript-action.git"
+    "url": "git+https://github.com/flipt-io/validate-action.git"
   },
   "keywords": [
     "actions",
-    "node",
-    "setup"
+    "flipt",
+    "validate"
   ],
-  "author": "",
-  "license": "MIT",
+  "author": "Flipt Devs <dev@flipt.io>",
+  "license": "Apache-2.0",
   "dependencies": {
     "@actions/core": "^1.10.0",
     "@actions/exec": "^1.1.1",
