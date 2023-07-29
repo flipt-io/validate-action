@@ -69,3 +69,49 @@ Following inputs can be used as `step.with` keys
 | `github-token` | string | **Required**. The token to use for GitHub API requests |
 | `working-directory` | string | **Optional**. The directory to validate, defaults to the repository root |
 | `args` | string | **Optional**. Additional arguments to pass to the `flipt validate` command |
+
+## Development
+
+### Build
+
+Builds the typescript code.
+
+```bash
+npm run build
+```
+
+### Lint
+
+Runs eslint.
+
+```bash
+npm run lint
+```
+
+### Format
+
+Runs prettier.
+  
+```bash
+npm run format
+```
+
+### Package
+
+Packages the code into the dist folder. Must be updated to pass CI on `main`.
+
+```bash
+npm run package
+```
+
+### All
+
+Runs all of the above commands.
+
+```bash
+npm run all
+```
+
+## License
+
+[Apache 2.0](LICENSE)
