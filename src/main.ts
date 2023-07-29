@@ -87,7 +87,7 @@ async function validate(args: string[] = []): Promise<void> {
     core.error(message, opts)
   }
 
-  const msg = `Found ${errors} errors when validating features.yml`
+  const msg = `Found ${errors} error(s) when validating features.yml`
   if (continueOnError) {
     core.warning(msg)
     return
