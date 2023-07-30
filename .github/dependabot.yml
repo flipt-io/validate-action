@@ -4,8 +4,18 @@ updates:
     directory: /
     schedule:
       interval: daily
+    labels:
+      - 'dependencies'
+      - 'github_actions'
+      # kodiak `merge.automerge_label`
+      - 'automerge'
 
   - package-ecosystem: npm
     directory: /
     schedule:
       interval: daily
+    labels:
+      - 'dependencies'
+      - 'javascript'
+      # kodiak `merge.automerge_label`
+      - 'automerge'
