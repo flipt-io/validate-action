@@ -47,15 +47,15 @@ Validation failed!
 validate:
   runs-on: ubuntu-latest
   steps:
-      # Checkout the target repository
+    # Checkout the target repository
     - uses: actions/checkout@v3
 
     - uses: flipt-io/validate-action@v0.1.0
       with:
         # Required, the token to use for GitHub API requests
-        github-token: ${{ secrets.GITHUB_TOKEN }} 
+        github-token: ${{ secrets.GITHUB_TOKEN }}
         # Optional, the directory to validate, defaults to the repository root
-        # working-directory: 
+        # working-directory:
 ```
 
 ## Customizing
@@ -64,51 +64,28 @@ validate:
 
 Following inputs can be used as `step.with` keys
 
-| Name | Type | Description |
-| --- | --- | --- |
-| `github-token` | string | **Required**. The token to use for GitHub API requests |
-| `working-directory` | string | **Optional**. The directory to validate, defaults to the repository root |
-| `args` | string | **Optional**. Additional arguments to pass to the `flipt validate` command |
+| Name                | Type   | Description                                                                |
+| ------------------- | ------ | -------------------------------------------------------------------------- |
+| `github-token`      | string | **Required**. The token to use for GitHub API requests                     |
+| `working-directory` | string | **Optional**. The directory to validate, defaults to the repository root   |
+| `args`              | string | **Optional**. Additional arguments to pass to the `flipt validate` command |
 
 ## Development
 
-### Build
-
-Builds the typescript code.
-
-```bash
+```
+# Builds the typescript code.
 npm run build
-```
 
-### Lint
-
-Runs eslint.
-
-```bash
+# Runs eslint.
 npm run lint
-```
 
-### Format
-
-Runs prettier.
-  
-```bash
+# Runs prettier.
 npm run format
-```
 
-### Package
-
-Packages the code into the dist folder. Must be updated to pass CI on `main`.
-
-```bash
+# Packages the code into the dist folder. Must be updated to pass CI on `main`.
 npm run package
-```
 
-### All
-
-Runs all of the above commands.
-
-```bash
+# Runs all of the above commands.
 npm run all
 ```
 
