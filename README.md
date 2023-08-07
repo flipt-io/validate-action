@@ -2,6 +2,8 @@
 
 This action validates Flipt [features.yaml](https://www.flipt.io/docs/experimental/filesystem-backends#defining-flag-state) files for syntax and semantic errors.
 
+![Validate](./.github/images/action.png)
+
 ## Example
 
 ```yaml
