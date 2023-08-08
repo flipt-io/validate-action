@@ -1,6 +1,8 @@
 # Flipt Validate Action
 
-This action validates Flipt [features.yaml](https://www.flipt.io/docs/experimental/filesystem-backends#defining-flag-state) files for syntax and semantic errors.
+![GitHub Release](https://img.shields.io/github/v/release/flipt-io/validate-action)
+
+This action validates [Flipt](https://flipt.io) feature flag [features.yaml](https://www.flipt.io/docs/experimental/filesystem-backends#defining-flag-state) files for syntax and semantic errors.
 
 ![Validate](./.github/images/action.png)
 
@@ -53,7 +55,7 @@ validate:
     - uses: actions/checkout@v3
 
     - uses: flipt-io/validate-action@v0.1.0
-      with:
+      # with:
         # Optional, the token to use for GitHub API requests
         # github-token: ${{ secrets.GITHUB_TOKEN }}
         # Optional, the directory to validate, defaults to the repository root
@@ -74,7 +76,7 @@ Following inputs can be used as `step.with` keys
 
 ## Development
 
-```
+```console
 # Builds the typescript code.
 npm run build
 
