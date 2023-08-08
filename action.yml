@@ -10,7 +10,7 @@ inputs:
     description: 'working directory, default is project root'
     required: false
   github-token:
-    required: true
+    required: false
     description: 'GitHub Token for downloading artifacts'
 runs:
   using: 'node16'

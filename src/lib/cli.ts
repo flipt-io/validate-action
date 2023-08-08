@@ -5,6 +5,8 @@ import * as github from '@actions/github';
 import * as tc from '@actions/tool-cache';
 import { exec } from './exec';
 import path from 'path';
+import fetch from "node-fetch";
+import { Octokit } from '@octokit/rest';
 
 function getPlatform(): string | undefined {
   const platforms = {
@@ -22,6 +24,19 @@ function getPlatform(): string | undefined {
 }
 
 export async function downloadFlipt(): Promise<void> {
+  let octokit: any;
+
+  const repoToken: string = core.getInput('github-token', { required: false })
+  if (repoToken) {
+    core.debug('Using provided github token');
+    octokit = github.getOctokit(repoToken);
+  } else {
+    core.debug('No github token provided');
+    octokit = new Octokit({
+      request: {fetch: fetch},
+    });
+  }
+
   const platform = getPlatform();
   if (!platform) {
     throw new Error('Unsupported platform');
@@ -38,8 +53,6 @@ export async function downloadFlipt(): Promise<void> {
 
   core.info('flipt is not installed, proceeding to downloading');
 
-  const octokit = github.getOctokit(ensureGitHubToken());
-
   try {
     const release = await octokit.rest.repos.getLatestRelease({
       owner: 'flipt-io',
@@ -51,7 +64,7 @@ export async function downloadFlipt(): Promise<void> {
     core.debug(`Latest flipt release is ${version}`);
 
     const asset = release.data.assets.find(
-      (asset) => asset.name === `flipt_${platform}.tar.gz`,
+      (asset: { name: string; }) => asset.name === `flipt_${platform}.tar.gz`,
     );
 
     const downloadUrl = asset?.browser_download_url;
@@ -96,17 +109,4 @@ export async function downloadFlipt(): Promise<void> {
   } catch (error) {
     throw new Error(`Failed to fetch latest release: ${error}`);
   }
-}
-
-function ensureGitHubToken(): string {
-  let token: string | undefined = core.getInput('github-token');
-  if (!token || token.length === 0) {
-    token = process.env.GITHUB_TOKEN;
-  }
-  if (!token || token.length === 0) {
-    throw new Error('GitHub token is required');
-  }
-
-  core.debug('GitHub token is present');
-  return token;
 }

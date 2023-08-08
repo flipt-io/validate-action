@@ -2,6 +2,8 @@
 
 This action validates Flipt [features.yaml](https://www.flipt.io/docs/experimental/filesystem-backends#defining-flag-state) files for syntax and semantic errors.
 
+![Validate](./.github/images/action.png)
+
 ## Example
 
 ```yaml
@@ -52,7 +54,7 @@ validate:
 
     - uses: flipt-io/validate-action@v0.1.0
       with:
-        # Required, the token to use for GitHub API requests
+        # Optional, the token to use for GitHub API requests
         github-token: ${{ secrets.GITHUB_TOKEN }}
         # Optional, the directory to validate, defaults to the repository root
         # working-directory:
@@ -66,7 +68,7 @@ Following inputs can be used as `step.with` keys
 
 | Name                | Type   | Description                                                                |
 | ------------------- | ------ | -------------------------------------------------------------------------- |
-| `github-token`      | string | **Required**. The token to use for GitHub API requests                     |
+| `github-token`      | string | **Optional**. The token to use for GitHub API requests                     |
 | `working-directory` | string | **Optional**. The directory to validate, defaults to the repository root   |
 | `args`              | string | **Optional**. Additional arguments to pass to the `flipt validate` command |
 
