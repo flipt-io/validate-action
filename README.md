@@ -55,7 +55,7 @@ validate:
     - uses: flipt-io/validate-action@v0.1.0
       with:
         # Optional, the token to use for GitHub API requests
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+        # github-token: ${{ secrets.GITHUB_TOKEN }}
         # Optional, the directory to validate, defaults to the repository root
         # working-directory:
 ```
