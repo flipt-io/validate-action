@@ -311,7 +311,7 @@ function validate(args = []) {
             core.setFailed(`flipt validate failed: ${result.stderr}`);
             return;
         }
-        // TODO: hack to get second line of output until env vars can override default config
+        // TODO: hack to get second line of output until https://github.com/flipt-io/flipt/issues/2531 is fixed
         const lines = result.stdout.toString().split('\n');
         if (lines.length < 2) {
             core.setFailed('flipt validate returned invalid output');
@@ -328,7 +328,7 @@ function validate(args = []) {
         }
         let errors = 0;
         const json = JSON.parse(response);
-        // reponse looks like :
+        // response looks like:
         // [{"message":"flags.0.rules.0.distributions.0.rollout: invalid value 110 (out of bound \\u003c=100)","location":{"file":"features.yaml","line":17}}]
         // loop through objects in response
         for (const error of json) {
