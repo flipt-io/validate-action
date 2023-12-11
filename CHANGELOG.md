@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.1](https://github.com/flipt-io/validate-action/compare/v0.1.0...v0.1.1) (2023-12-11)
+
+
+### Bug Fixes
+
+* validate no longer takes files ([#88](https://github.com/flipt-io/validate-action/issues/88)) ([1851d1c](https://github.com/flipt-io/validate-action/commit/1851d1c6288012b8069435de0db076145af96f00))
+
 ## 0.1.0 (2023-08-08)
 
 
