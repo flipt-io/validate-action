@@ -1,8 +1,8 @@
 import * as core from '@actions/core'
 import * as glob from '@actions/glob'
-import { downloadFlipt } from './lib/cli'
-import { environmentVariables } from './lib/environment'
-import { exec } from './lib/exec'
+import {downloadFlipt} from './lib/cli'
+import {environmentVariables} from './lib/environment'
+import {exec} from './lib/exec'
 
 async function run(): Promise<void> {
   try {
@@ -61,7 +61,18 @@ async function validate(args: string[] = []): Promise<void> {
   }
 
   let errors = 0
-  const json = JSON.parse(response)
+  const json = JSON.parse(response, function (key, value) {
+    if (key === 'message') {
+      // replace \u with \\u
+      // remove all unicode control characters
+
+      // eslint-disable-next-line no-control-regex
+      return value
+        .replace(/\\u/g, '\\\\u')
+        .replace(/[\u0000-\u001f\u007f-\u009f]/g, '')
+    }
+    return value
+  })
 
   if (!json.errors || json.errors.length === 0) {
     core.debug('flipt returned no errors')
@@ -71,7 +82,7 @@ async function validate(args: string[] = []): Promise<void> {
 
   for (const error of json.errors) {
     errors += 1
-    const { message, location } = error
+    const {message, location} = error
 
     // TODO: hack
     const file = location.file.replace('/workspace/', '')
