@@ -1,5 +1,4 @@
 import * as core from '@actions/core'
-import * as glob from '@actions/glob'
 import {downloadFlipt} from './lib/cli'
 import {environmentVariables} from './lib/environment'
 import {exec} from './lib/exec'
@@ -41,7 +40,12 @@ async function validate(args: string[] = []): Promise<void> {
   const result = await exec(
     'flipt',
     ['validate', '--issue-exit-code=0', '--format=json'],
-    false
+    false,
+    {
+      env: {
+        FLIPT_LOG_LEVEL: 'fatal'
+      }
+    }
   )
 
   core.endGroup()
