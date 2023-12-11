@@ -311,7 +311,15 @@ function validate(args = []) {
             core.setFailed(`flipt validate failed: ${result.stderr}`);
             return;
         }
-        const response = result.stdout.toString().trim();
+        // TODO: hack to get second line of output until env vars can override default config
+        const lines = result.stdout.toString().split('\n');
+        if (lines.length < 2) {
+            core.setFailed('flipt validate returned invalid output');
+            return;
+        }
+        // get second line of output
+        const line = lines[1];
+        const response = line.trim();
         core.debug(`flipt response: ${response}`);
         if (response.length === 0) {
             core.debug('flipt returned empty response');
