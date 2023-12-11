@@ -1,4 +1,5 @@
 import * as aexec from '@actions/exec';
+import * as core from '@actions/core';
 
 export interface ExecResult {
   success: boolean;
@@ -9,14 +10,16 @@ export interface ExecResult {
 export const exec = async (
   command: string,
   args: string[] = [],
-  silent?: boolean,
   opts = {},
 ): Promise<ExecResult> => {
   const eopts: aexec.ExecOptions = {
-    silent: silent,
+    silent: false,
     ignoreReturnCode: true,
     ...opts,
   };
+
+  core.debug(`running ${command} ${args.join(' ')}, opts: ${JSON.stringify(eopts)}`);
+
   const { exitCode, stdout, stderr } = await aexec.getExecOutput(
     command,
     args,

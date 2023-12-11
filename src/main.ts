@@ -40,7 +40,6 @@ async function validate(args: string[] = []): Promise<void> {
   const result = await exec(
     'flipt',
     ['validate', '--issue-exit-code=0', '--format=json'],
-    false,
     {
       env: {
         FLIPT_LOG_LEVEL: 'fatal'

@@ -213,8 +213,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.exec = void 0;
 const aexec = __importStar(__nccwpck_require__(1514));
-const exec = (command, args = [], silent, opts = {}) => __awaiter(void 0, void 0, void 0, function* () {
-    const eopts = Object.assign({ silent: silent, ignoreReturnCode: true }, opts);
+const core = __importStar(__nccwpck_require__(2186));
+const exec = (command, args = [], opts = {}) => __awaiter(void 0, void 0, void 0, function* () {
+    const eopts = Object.assign({ silent: false, ignoreReturnCode: true }, opts);
+    core.debug(`running ${command} ${args.join(' ')}, opts: ${JSON.stringify(eopts)}`);
     const { exitCode, stdout, stderr } = yield aexec.getExecOutput(command, args, eopts);
     return {
         success: exitCode === 0,
@@ -299,7 +301,7 @@ function validate(args = []) {
         const continueOnError = args.includes('--continue-on-error');
         core.debug(`running flipt in workspace: ${workspace}`);
         core.startGroup('Running flipt validate');
-        const result = yield (0, exec_1.exec)('flipt', ['validate', '--issue-exit-code=0', '--format=json'], false, {
+        const result = yield (0, exec_1.exec)('flipt', ['validate', '--issue-exit-code=0', '--format=json'], {
             env: {
                 FLIPT_LOG_LEVEL: 'fatal'
             }
