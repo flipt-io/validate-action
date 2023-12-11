@@ -299,7 +299,11 @@ function validate(args = []) {
         const continueOnError = args.includes('--continue-on-error');
         core.debug(`running flipt in workspace: ${workspace}`);
         core.startGroup('Running flipt validate');
-        const result = yield (0, exec_1.exec)('flipt', ['validate', '--issue-exit-code=0', '--format=json'], false);
+        const result = yield (0, exec_1.exec)('flipt', ['validate', '--issue-exit-code=0', '--format=json'], false, {
+            env: {
+                FLIPT_LOG_LEVEL: 'fatal'
+            }
+        });
         core.endGroup();
         if (!result.success) {
             core.setFailed(`flipt validate failed: ${result.stderr}`);
