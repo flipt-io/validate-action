@@ -313,7 +313,17 @@ function validate(args = []) {
             return;
         }
         let errors = 0;
-        const json = JSON.parse(response);
+        const json = JSON.parse(response, function (key, value) {
+            if (key === 'message') {
+                // replace \u with \\u
+                // remove all unicode control characters
+                // eslint-disable-next-line no-control-regex
+                return value
+                    .replace(/\\u/g, '\\\\u')
+                    .replace(/[\u0000-\u001f\u007f-\u009f]/g, '');
+            }
+            return value;
+        });
         if (!json.errors || json.errors.length === 0) {
             core.debug('flipt returned no errors');
             core.info('✅ No invalid files found');
