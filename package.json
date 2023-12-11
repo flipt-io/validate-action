@@ -1,6 +1,6 @@
 {
   "name": "flipt-validate-action",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "description": "Run Flipt Validate for features.yaml files",
   "main": "lib/main.js",
