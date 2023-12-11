@@ -1,5 +1,4 @@
 import * as core from '@actions/core'
-import * as glob from '@actions/glob'
 import {downloadFlipt} from './lib/cli'
 import {environmentVariables} from './lib/environment'
 import {exec} from './lib/exec'
@@ -38,13 +37,14 @@ async function validate(args: string[] = []): Promise<void> {
 
   core.startGroup('Running flipt validate')
 
-  const globber = await glob.create(`${workspace}/**/*/features.yaml`)
-  const files = await globber.glob()
-
   const result = await exec(
     'flipt',
-    ['validate', files.join(' '), '--issue-exit-code=0', '--format=json'],
-    false
+    ['validate', '--issue-exit-code=0', '--format=json'],
+    {
+      env: {
+        FLIPT_LOG_LEVEL: 'fatal'
+      }
+    }
   )
 
   core.endGroup()
@@ -54,7 +54,18 @@ async function validate(args: string[] = []): Promise<void> {
     return
   }
 
-  const response = result.stdout
+  // TODO: hack to get second line of output until env vars can override default config
+  const lines = result.stdout.toString().split('\n')
+  if (lines.length < 2) {
+    core.setFailed('flipt validate returned invalid output')
+    return
+  }
+
+  // get second line of output
+  const line = lines[1]
+
+  const response = line.trim()
+
   core.debug(`flipt response: ${response}`)
 
   if (response.length === 0) {
@@ -66,13 +77,11 @@ async function validate(args: string[] = []): Promise<void> {
   let errors = 0
   const json = JSON.parse(response)
 
-  if (!json.errors || json.errors.length === 0) {
-    core.debug('flipt returned no errors')
-    core.info('✅ No invalid files found')
-    return
-  }
+  // reponse looks like :
+  // [{"message":"flags.0.rules.0.distributions.0.rollout: invalid value 110 (out of bound \\u003c=100)","location":{"file":"features.yaml","line":17}}]
+  // loop through objects in response
 
-  for (const error of json.errors) {
+  for (const error of json) {
     errors += 1
     const {message, location} = error
 
