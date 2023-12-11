@@ -305,7 +305,7 @@ function validate(args = []) {
             core.setFailed(`flipt validate failed: ${result.stderr}`);
             return;
         }
-        const response = result.stdout;
+        const response = result.stdout.toString().trim();
         core.debug(`flipt response: ${response}`);
         if (response.length === 0) {
             core.debug('flipt returned empty response');
@@ -313,19 +313,11 @@ function validate(args = []) {
             return;
         }
         let errors = 0;
-        const json = JSON.parse(response, function (key, value) {
-            // we want to remove all unicode control characters from the message
-            if (key === 'message') {
-                return value.replace(/[\u0000-\u001F\u007F-\u009F]/g, '');
-            }
-            return value;
-        });
-        if (!json.errors || json.errors.length === 0) {
-            core.debug('flipt returned no errors');
-            core.info('✅ No invalid files found');
-            return;
-        }
-        for (const error of json.errors) {
+        const json = JSON.parse(response);
+        // reponse looks like :
+        // [{"message":"flags.0.rules.0.distributions.0.rollout: invalid value 110 (out of bound \\u003c=100)","location":{"file":"features.yaml","line":17}}]
+        // loop through objects in response
+        for (const error of json) {
             errors += 1;
             const { message, location } = error;
             // TODO: hack
