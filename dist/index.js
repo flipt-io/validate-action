@@ -314,13 +314,9 @@ function validate(args = []) {
         }
         let errors = 0;
         const json = JSON.parse(response, function (key, value) {
+            // we want to remove all unicode control characters from the message
             if (key === 'message') {
-                // replace \u with \\u
-                // remove all unicode control characters
-                // eslint-disable-next-line no-control-regex
-                return value
-                    .replace(/\\u/g, '\\\\u')
-                    .replace(/[\u0000-\u001f\u007f-\u009f]/g, '');
+                return value.replace(/[\u0000-\u001F\u007F-\u009F]/g, '');
             }
             return value;
         });

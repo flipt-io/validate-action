@@ -62,15 +62,12 @@ async function validate(args: string[] = []): Promise<void> {
 
   let errors = 0
   const json = JSON.parse(response, function (key, value) {
-    if (key === 'message') {
-      // replace \u with \\u
-      // remove all unicode control characters
+    // we want to remove all unicode control characters from the message
 
-      // eslint-disable-next-line no-control-regex
-      return value
-        .replace(/\\u/g, '\\\\u')
-        .replace(/[\u0000-\u001f\u007f-\u009f]/g, '')
+    if (key === 'message') {
+      return value.replace(/[\u0000-\u001F\u007F-\u009F]/g, '')
     }
+
     return value
   })
 
