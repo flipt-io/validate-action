@@ -1,7 +1,7 @@
 # Flipt Validate Action (Deprecated)
 
 > [!NOTE]
-> This action is deprecated and will not be maintained going forward. Please use the [Flipt Setup Action](https://github.com/marketplace/actions/flipt-setup-action) instead which can be used to validate your feature flag files as perform any other operations provided by the [Flipt CLI](https://www.flipt.io/docs/cli/overview).
+> This action is deprecated and will not be maintained going forward. Please use the [Flipt Setup Action](https://github.com/marketplace/actions/flipt-setup-action) instead which can be used to validate your feature flag files as well as perform any other operations provided by the [Flipt CLI](https://www.flipt.io/docs/cli/overview).
 
 ![GitHub Release](https://img.shields.io/github/v/release/flipt-io/validate-action)
 
